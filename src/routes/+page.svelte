@@ -14,8 +14,6 @@
         (invoice) => invoice.status === filter || filter === "all" || filter === "Filter"
     );
     
-    $: console.log(filteredInvoices);
-    
     // FUNCTIONS //
     import { getInvoicesIndex } from "../store/functionStore";
     // SASS FILES //
@@ -35,7 +33,6 @@
             </div>
             <div class="settings">
                 <FormField
-                    id="filter"
                     form="select"
                     options={invoiceFilter}
                     bind:value={filter}

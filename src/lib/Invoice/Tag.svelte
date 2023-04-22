@@ -51,6 +51,9 @@
                 background-color: rgba($color: rgb(56, 56, 56), $alpha: .5);
             }
             }
+            @include desktop{
+                height: toRem(55);
+            }
             @include large{
                 width: toRem(185);
                 height: toRem(60);

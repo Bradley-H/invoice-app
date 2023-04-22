@@ -317,9 +317,7 @@
                         bind:value={terms}
                         on:toggleInvoice={(e) => activeFormField = e.detail.val.text}
                         on:toggleInvoice={(e) => terms = e.detail.val.value}
-                        
                         {activeFormField}
-
                         />
                 </div>
                 <FormField

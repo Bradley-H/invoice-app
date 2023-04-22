@@ -32,8 +32,6 @@ import {convertDate, numberWithCommas} from '../../store/functionStore'
             @include tablet{
                 flex-direction: row;
                 align-items: center;
-            }
-            @include tablet{
                 padding: 1rem;
             }
     }
@@ -52,7 +50,7 @@ import {convertDate, numberWithCommas} from '../../store/functionStore'
             grid-template-columns: 1fr 60%;
         }
         @include desktop{
-            width: toRem(350);
+            width: 100%;
         }
         @include large{
             width: toRem(510);
@@ -101,13 +99,12 @@ import {convertDate, numberWithCommas} from '../../store/functionStore'
         @include laptop{
             display: flex;
             flex-direction: column;
+            gap: toRem(8);
         }
         @include desktop{
             padding: 0 toRem(8) 0 0;
-            width: toRem(190);
-        }
-        @include large{
             width: 100%;
+            gap: toRem(10);
         }
     }
     }

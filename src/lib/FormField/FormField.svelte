@@ -37,9 +37,6 @@
             value = 0;
         }
     }
-    function toggleActive(){
-        active = !active
-    }
     import "../../scss/styles.scss";
     let touched = false;
     
@@ -83,23 +80,20 @@
             bind:value
         />
     {:else if form === "select"}
-    <div class="filter {theme}">
+    <div class="filter {theme}" on:click={() => active = !active}
+        on:keypress={() => active = !active}>
         <div class="option">
-            <div class="title" on:click={() => active = true}
-                               on:mouseover={() => active = true}
-                               on:mouseleave={() => active = false}
-                               on:focus={() => active = true}
-                               on:keydown={() => active = true}
-                >
+            <div class="title" >
                 <Text size="{innerWidth >= 1440 ? "h3" : "h4"}" text={activeFormField} />
             </div>
-            <ul class:active={active}>
+            <ul class:active={active}
+                on:click={() => active = !active}
+                on:keypress={() => active = !active}>
                 {#each options as val(val.id)}
                     <li on:click={() => dispatch("toggleInvoice", {val})}
-                        on:click={() => active = false}
-                        on:keypress={() => active = false}
-                        on:keypress={() => dispatch("toggleInvoice", {val})}
-                        >
+                        on:click={() => active = !active}
+                        on:keypress={() => active = !active}
+                        on:keypress={() => dispatch("toggleInvoice", {val})}>
                         <Text size="{innerWidth >= 1440 ? "h3" : "h4"}" text={val.text} />
                     </li>
                 {/each}
@@ -149,21 +143,17 @@
     .filter{
         position: relative;
         width: 100%;
-        max-height: 100%;
+        height: 100%;
         padding: 0;
         z-index: 2;
+        cursor: pointer;
         .title{
             transform: translateY(.25rem);
             @include large{
                 transform: translateY(30%);
             }
         }
-        &:hover{
-            ul{
-                opacity: 1;
-                transform: translateY(0px);
-            }
-        }
+
         ul{
             display: flex;
             flex-direction: column;
@@ -173,17 +163,20 @@
             position: absolute;
             width: 100%;
             left: 0;
+            pointer-events: none;
             &.active{
                 opacity: 1;
                 transform: translateY(0px);
                 li{
-                    cursor: pointer;
+                    pointer-events: all;
                 }
             }
             li{
+                pointer-events: none;
                 padding: .75rem;
                 height: 100%;
                 @include centered;
+                pointer-events: none;  
             }
         }
         &.Dark{
