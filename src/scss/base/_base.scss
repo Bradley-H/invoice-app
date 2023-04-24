@@ -1,0 +1,74 @@
+@import "../util/functions";
+
+*,
+*::after,
+*::before{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a{
+    text-decoration: none;
+}
+
+li{
+    list-style: none;
+}
+
+button, input{
+    border: none;
+    outline: none;
+    background-color: transparent;
+    color: white;
+}
+
+body, html{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-family: $primaryFont;
+    height: 100%;
+};
+
+$fontSize: (h1: 29, h2: 21, h3: 17, h4: 14, h5: 13, p: 12);
+
+@each $size, $val in $fontSize {
+    #{$size}{
+        font-size: toRem($val);
+    }
+    @include large{
+        #{$size}{
+            font-size: toRem($val + 3);
+        }
+    }
+    @include fourk{
+        #{$size}{
+            font-size: toRem($val + 10);
+        }
+    }
+}
+
+// THIS IS FOR REUSABILITY //
+.bgColorDark{
+    background-color: $bgColorDark;
+}
+.bgColorDarker{
+    background-color: darken($color: $bgColorDark, $amount: 10);
+}
+
+.bgColorLight{
+    background-color: $bgColorLight;
+}
+
+.txtColorDark{
+    color: $miscLight;
+}
+
+.txtColorLight{
+    color: black;
+}
+
+.txtDangerColor{
+    color: $colorDanger;
+}

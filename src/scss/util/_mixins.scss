@@ -1,0 +1,37 @@
+@mixin centered{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@mixin tablet{
+    @media (min-width: $tabletMin) {
+        @content;
+    }
+}
+
+
+@mixin laptop{
+    @media (min-width: $laptopMin) {
+        @content;
+    }
+}
+
+@mixin desktop{
+    @media (min-width: $desktopMin) {
+        @content;
+    }
+}
+
+@mixin large{
+    @media (min-width: $large) {
+        @content;
+    }
+}
+
+@mixin fourk{
+    @media (min-width: $fourk) {
+        @content;
+    }
+}
