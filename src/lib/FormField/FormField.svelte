@@ -45,8 +45,8 @@
 <svelte:window bind:innerWidth={innerWidth} />
 
 <div class:title>
-    <label {disabled} for={id}>
-        <Text {disabled} size="p" title {text} /></label>
+    <label for={id}>
+        <Text size="p" title {text} /></label>
     {#if form === "text"}
         <input
             {disabled}
@@ -85,6 +85,7 @@
         <div class="option">
             <div class="title" >
                 <Text size="{innerWidth >= 1440 ? "h3" : "h4"}" text={activeFormField} />
+                    <i class="fas fa-caret-down" class:active={active}></i>
             </div>
             <ul class:active={active}
                 on:click={() => active = !active}
@@ -98,8 +99,8 @@
                     </li>
                 {/each}
             </ul>
-                
         </div>
+        
     </div>
     {/if}
     {#if invalidMessage && !valid && touched}
@@ -111,9 +112,10 @@
     @import "../../scss/util/index.scss";
     div {
         @extend %fullWidth;
-        height: 100%;
         &.title {
-            margin-bottom: toRem(12);
+            @include tablet{
+                transform: translateY(.25rem);
+            }
         }
         input,
         .filter {
@@ -133,6 +135,10 @@
                 background-color: lighten($color: $bgColorDark, $amount: 7);
                 color: #fff;
             }
+            &.Light{
+                border: 2px solid black;
+                color: black;
+            }
             &:disabled {
                 opacity: 0.6;
             }
@@ -142,15 +148,31 @@
 
     .filter{
         position: relative;
-        width: 100%;
-        height: 100%;
+        @extend %fullWidth;
+        @extend %fullHeight;
         padding: 0;
         z-index: 2;
         cursor: pointer;
         .title{
+            display: flex;
+            align-items: center;
+            gap: 2rem;
             transform: translateY(.25rem);
             @include large{
-                transform: translateY(30%);
+                transform: translateY(.8rem)
+            }
+            i{
+                margin-left: auto;
+                font-size: toRem(20);
+                transform-origin: center center;
+                transform: rotate(180deg);
+                transition: all 0.5s ease;
+                @include large{
+                    font-size: toRem(30);
+                }
+                &.active{
+                    transform: rotate(0deg);
+                }
             }
         }
 
@@ -161,8 +183,9 @@
             transition: all 0.5s ease;
             transform: translateY(-15px);
             position: absolute;
-            width: 100%;
+            @extend %fullWidth;
             left: 0;
+            top: 100%;
             pointer-events: none;
             &.active{
                 opacity: 1;
@@ -174,7 +197,7 @@
             li{
                 pointer-events: none;
                 padding: .75rem;
-                height: 100%;
+                @extend %fullHeight;
                 @include centered;
                 pointer-events: none;  
             }
@@ -202,9 +225,10 @@
     p {
         display: none;
         color: $colorDanger;
-        margin: toRem(6) 0;
+        margin: toRem(5) 0;
         &.invalid {
             display: block;
+            font-weight: bold;
         }
     }
 

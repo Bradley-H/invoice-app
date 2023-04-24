@@ -39,7 +39,12 @@ $fontSize: (h1: 29, h2: 21, h3: 17, h4: 14, h5: 13, p: 12);
     }
     @include large{
         #{$size}{
-            font-size: toRem($val + 8);
+            font-size: toRem($val + 3);
+        }
+    }
+    @include fourk{
+        #{$size}{
+            font-size: toRem($val + 10);
         }
     }
 }

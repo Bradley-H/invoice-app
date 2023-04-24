@@ -11,6 +11,7 @@
     }
 }
 
+
 @mixin laptop{
     @media (min-width: $laptopMin) {
         @content;
@@ -25,6 +26,12 @@
 
 @mixin large{
     @media (min-width: $large) {
+        @content;
+    }
+}
+
+@mixin fourk{
+    @media (min-width: $fourk) {
         @content;
     }
 }

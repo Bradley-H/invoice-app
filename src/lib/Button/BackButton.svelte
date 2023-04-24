@@ -20,13 +20,12 @@
     @import "../../scss/util/index.scss";
     a,
     button {
-        display: flex;
-        justify-content: center;
+        @include centered;
         font-size: toRem(13);
         margin: 1.5rem 0;
         cursor: pointer;
         @include tablet {
-            font-size: toRem(18);
+            font-size: toRem(30);
         }
     }
 
@@ -34,7 +33,10 @@
         color: $colorLight;
         font-weight: bold;
         margin-right: 0.5rem;
-        font-size: 1.2rem;
+        font-size: 1.4rem;
+        @include desktop{
+            font-size: 1.6rem;
+        }
         @include large {
             font-size: 2rem;
             margin-right: 1rem;

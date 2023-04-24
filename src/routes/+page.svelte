@@ -41,6 +41,7 @@
                     />
                 <Button
                     rounded
+                    size="small"
                     icon="plus"
                     text="Add Invoice"
                     on:click={() => ($globalStore.modalStatus = "add")}
@@ -75,16 +76,9 @@
     .container {
         @extend %flexCol;
         @extend %fullWidth;
-        max-width: $containerWidth;
-        @include desktop {
-            display: grid;
-            grid-template-columns: 1fr;
-            max-width: $containerWidthDesktop;
-            place-self: center;
-            max-width: clamp(toRem(1000), 100%, toRem(2500));
-        }
         @include large {
             margin-left: $navWidthLarge;
+            width: unset;
         }
         div.invoices {
             @extend %flexCol;
@@ -99,7 +93,7 @@
                 grid-template-columns: 1fr 1fr;
                 gap: toRem(7);
                 justify-self: center;
-                max-width: clamp(toRem(1000), 100%, toRem(2500));
+                max-width: 100%;            
             }
             @include large{
                 grid-template-columns: 1fr 1fr 1fr;
@@ -125,6 +119,10 @@
                 place-items: center;
                 @include tablet {
                     gap: toRem(30);
+                }
+                @include large{
+                    width: toRem(420);
+                    height: 100%
                 }
             }
         }

@@ -13,6 +13,14 @@
     // STORES //
     import { globalStore } from "../../store/globalStore";
     // LIFECYCLE HOOKS //
+    //composable //
+    function icn(icon){
+        if( innerWidth > 2000) {
+            return icon
+        } else {
+            return ""
+        }
+    }
     onMount(() => {
         if ($globalStore.modalStatus === "edit") {
             // if the modal is in edit mode
@@ -38,6 +46,8 @@
         $globalStore.modalStatus = null;
         newInvoice = null;
     });
+
+    $: size = (innerWidth > 1800 ? "large" : "medium");
     
     // FUNCTIONS //
     import {
@@ -184,7 +194,7 @@
     import "../../scss/styles.scss";
 </script>
 
-<div class="modal" transition:fly={{ duration: 1200, opacity: 1, x: -700 }}>
+<div class="modal" transition:fly={{ duration: 1200, opacity: 1, x: -780 }}>
     <Card modal>
         <form>
             <div class="title">
@@ -195,7 +205,9 @@
                         ? "Add New Invoice"
                         : `Edit Invoice #${id}`}/>
 
-                <BackButton on:click={discardInvoice} />
+                <BackButton on:click={discardInvoice} 
+                            on:keypress={discardInvoice}
+                />
             </div>
 
             <div class="billFrom">
@@ -218,7 +230,7 @@
                             placeholder="City"
                             bind:value={senderAddress.city}
                             valid={strValid(senderAddress.city)}
-                            invalidMessage="Please enter a valid City"/>
+                            invalidMessage="Please enter a valid city"/>
 
                         <FormField
                             title
@@ -227,7 +239,7 @@
                             placeholder="Postal code"
                             bind:value={senderAddress.postCode}
                             valid={strValid(senderAddress.postCode)}
-                            invalidMessage="Please enter a valid postCode"/>
+                            invalidMessage="Please enter a valid postal code"/>
 
                         <div class="billFrom_information-country">
                             <FormField
@@ -237,7 +249,7 @@
                                 placeholder="Country"
                                 bind:value={senderAddress.country}
                                 valid={strValid(senderAddress.country)}
-                                invalidMessage="Please enter a valid Country"/>
+                                invalidMessage="Please enter a valid country"/>
 
                         </div>
                     </div>
@@ -252,7 +264,7 @@
                     placeholder="Name"
                     bind:value={newInvoice.clientName}
                     valid={strValid(clientName)}
-                    invalidMessage="Please enter a valid Name"/>
+                    invalidMessage="Please enter a valid name"/>
 
                 <FormField
                     text="Client's Email"
@@ -260,7 +272,7 @@
                     placeholder="Email"
                     bind:value={newInvoice.clientEmail}
                     valid={emailValid(clientEmail)}
-                    invalidMessage="Please enter a valid Email"/>
+                    invalidMessage="Please enter a valid email"/>
 
                 <FormField
                     text="Street Address"
@@ -268,7 +280,7 @@
                     placeholder="Street Address"
                     bind:value={clientAddress.street}
                     valid={strValid(clientAddress.street)}
-                    invalidMessage="Please enter a valid Street"/>
+                    invalidMessage="Please enter a valid street"/>
 
                 <div class="billTo_information">
                     <div class="billTo_information-city">
@@ -278,7 +290,7 @@
                             placeholder="City"
                             bind:value={clientAddress.city}
                             valid={strValid(clientAddress.city)}
-                            invalidMessage="Please enter a valid City"/>
+                            invalidMessage="Please enter a valid city"/>
 
                         <FormField
                             text="Postal Code"
@@ -296,7 +308,7 @@
                                 placeholder="Country"
                                 bind:value={clientAddress.country}
                                 valid={strValid(clientAddress.country)}
-                                invalidMessage="Please enter a valid Country"/>
+                                invalidMessage="Please enter a valid country"/>
                         </div>
                     </div>
                 </div>
@@ -326,7 +338,7 @@
                     placeholder="Project Description"
                     bind:value={newInvoice.description}
                     valid={strValid(description)}
-                    invalidMessage="Please enter a valid Description"/>
+                    invalidMessage="Please enter a valid description."/>
             </div>
 
             <p>Item list</p>
@@ -341,7 +353,7 @@
                                 text="Name"
                                 placeholder="Item"
                                 valid={strValid(item.name)}
-                                invalidMessage={"Must be greater than 5 characters"}/>
+                                invalidMessage={"Must be greater than 5 characters."}/>
                         </div>
                         <div class="attributes">
                             <FormField
@@ -351,7 +363,7 @@
                                 form="number"
                                 text="Qty"
                                 valid={item.quantity >= 1}
-                                invalidMessage={"Must be greater than 1"}/>
+                                invalidMessage={"Must be greater than 1."}/>
 
                             <FormField
                                 title
@@ -360,7 +372,7 @@
                                 form="number"
                                 text="Price"
                                 valid={item.price >= 1}
-                                invalidMessage={"Must be greater than 1"}/>
+                                invalidMessage={"Must be greater than 1."}/>
 
                             <FormField
                                 title
@@ -371,7 +383,9 @@
                                 text="Total"
                                 placeholder="Total"/>
                             <button
-                                on:click|preventDefault={() => filterItem(i)}><i class="fas fa-trash" on:click />
+                                on:click|preventDefault={() => filterItem(i)}><i class="fas fa-trash" on:click
+                                                                                                      on:keypress  
+                                />
                             </button>
                         </div>
                     </div>
@@ -387,7 +401,7 @@
                 <Button
                     type="danger"
                     icon="trash"
-                    size="{innerWidth > 1880 ? "large" : "medium"}"
+                    size="small"
                     rounded
                     text="Discard"
                     on:click={() => (prompt = "discard")}/>
@@ -395,14 +409,14 @@
                     <Button
                         type="secondary"
                         icon="save"
-                        size="{innerWidth > 1880 ? "large" : "medium"}"
+                        size="small"
                         disabled={!isValid}
                         rounded
                         text="Save as Draft"
                         on:click={() => (prompt = "draft")}/>
                     <Button
                         type="primary"
-                        size="{innerWidth > 1880 ? "large" : "medium"}"
+                        size="small"
                         icon="paper-plane"
                         disabled={!isValid}
                         rounded
@@ -418,7 +432,9 @@
     class="overlay"
     in:fade={{ duration: 555 }}
     out:fade={{ duration: 300 }}
-    on:click={() => (prompt = "discard")}/>
+    on:click={() => (prompt = "discard")}
+    on:keypress={() => (prompt = "discard")}
+    />
 
 <!-- IF PROMPT === DISCARD/DRAFT/PENDING, ASK FOR CONFIRMATION -->
 {#if prompt == "discard"}
@@ -445,6 +461,9 @@
 <style lang="scss">
     @import "../../scss/util/index.scss";
 
+    
+$spacing: toRem(15);
+
     form {
         p {
             color: $colorLight;
@@ -455,13 +474,14 @@
             margin-bottom: 5rem;
         }
         .title {
-            margin-bottom: toRem(35);
+            margin-bottom: toRem(15);
         }
         .billFrom {
             @extend %flexCol;
             margin-top: toRem(35);
             &_information {
                 @extend %grid;
+                gap: $spacing;
                 &-city {
                     @extend %grid2;
                     @include tablet {
@@ -482,20 +502,22 @@
         .billTo {
             @extend %grid;
             grid-template-columns: 1fr;
-            gap: toRem(15);
+            gap: $spacing;
             @include large{
                 margin: 25px 0;
             }
 
             &_invoiceInformation {
+                display: grid;
+                gap: $spacing;
                 @include tablet {
-                    display: grid;
                     grid-template-columns: 1fr 1fr;
                     gap: toRem(10);
                 }
             }
             &_information {
                 @extend %grid;
+
                 &-city {
                     @extend %grid2;
                     margin: toRem(16) 0;
@@ -533,6 +555,9 @@
             max-width: toRem(700);
             margin: 0 0 0 $navWidthLarge;
         }
+        @include fourk{
+            max-width: toRem(800);
+        }
     }
 
     div.overlay {
@@ -547,21 +572,18 @@
 
     .btns {
         @extend %flex;
+        align-items: center;
         justify-content: center;
-        max-width: $invoiceModalWidthMobile;
+        width: 100%;
         transform: translateY(-2.5rem);
         position: sticky;
         margin: toRem(32) 0;
-        @include laptop {
-            margin: 0;
-        }
         @include large{
-            max-width: toRem(700);
             height: 5rem;
         }
         div {
             @extend %flex;
-            gap: toRem(10);
+            gap: toRem(8);
             margin-left: toRem(8);
         }
         @include laptop {
@@ -572,8 +594,7 @@
     .itemList {
         @extend %grid;
         margin-bottom: toRem(32);
-        gap: toRem(10);
-        grid-template-columns: 0.7fr 1.5fr;
+        grid-template-columns: 1fr 2fr;
         .nameField {
             @extend %grid;
             grid-template-columns: 1fr;
@@ -582,19 +603,36 @@
 
     .attributes {
         @extend %grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        gap: toRem(10);
+        grid-template-columns: 1fr 1fr 1fr .1fr;
+        gap: toRem(6);
+        margin-left: toRem(10);
         @include tablet {
             grid-template-columns: 1fr 1fr 1.5fr 0.3fr;
+            gap: toRem(10);
+            margin-left: toRem(10);
         }
     }
     i {
         color: red;
         font-size: toRem(18);
+        @include laptop{
+            font-size: toRem(25);
+            transform: translateY(toRem(5))
+        }
+        @include large{
+            font-size: toRem(30);
+            transform: translateY(toRem(10))
+        }
     }
 
     button {
-        height: 5.5rem;
+        display: grid;
         cursor: pointer;
+        height: 100%;
+        place-items: center;
+        margin-left: toRem(8);
+        i{
+            margin-top: 1rem;
+        }
     }
 </style>

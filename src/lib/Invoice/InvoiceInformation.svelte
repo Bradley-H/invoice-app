@@ -103,15 +103,15 @@
             <div class="bottomCard_invoiceInfo">
                 <div class="bottomCard_invoiceInfo-details">
                     <div class="bottomCard_invoiceInfo-ID">
-                        <Text size="{innerWidth > 1880 ? "h2" : "h3"}" text="#{id}" />
-                        <Text size="{innerWidth > 1880 ? "h4" : "p"}" text={description} />
+                        <Text size="{innerWidth > 2000 ? "h2" : "h3"}" text="#{id}" />
+                        <Text size="{innerWidth > 2000 ? "h4" : "p"}" text={description} />
                     </div>
 
                     <div class="bottomCard_invoiceInfo-senderInfo">
-                        <Text size="{innerWidth > 1880 ? "h5" : "p"}" text={senderAddress.street} />
-                        <Text size="{innerWidth > 1880 ? "h5" : "p"}" text={senderAddress.city} />
-                        <Text size="{innerWidth > 1880 ? "h5" : "p"}" text={senderAddress.postCode} />
-                        <Text size="{innerWidth > 1880 ? "h5" : "p"}" text={senderAddress.country} />
+                        <Text size="{innerWidth > 2000 ? "h5" : "p"}" text={senderAddress.street} />
+                        <Text size="{innerWidth > 2000 ? "h5" : "p"}" text={senderAddress.city} />
+                        <Text size="{innerWidth > 2000 ? "h5" : "p"}" text={senderAddress.postCode} />
+                        <Text size="{innerWidth > 2000 ? "h5" : "p"}" text={senderAddress.country} />
                     </div>
                 </div>
 
@@ -119,32 +119,32 @@
                     <div class="bottomCard_invoiceInfo-billTo-invoices">
                         <div class="bottomCard_invoiceInfo-billTo-invoiceDate">
                             <Text size="p" text="Invoice Date:" />
-                            <Text size="{innerWidth > 1880 ? "h3" : "h4"}" text={convertDate(createdAt, 0)} />
+                            <Text size="{innerWidth > 2000 ? "h3" : "h4"}" text={convertDate(createdAt, 0)} />
                         </div>
 
                         <div class="bottomCard_invoiceInfo-billTo-invoiceDue">
-                            <Text size="p" text="Payment Due" />
-                            <Text size="{innerWidth > 1880 ? "h3" : "h4"}" text={convertDate(paymentDue, 0)} />
+                            <Text size="p" text="Payment Due:" />
+                            <Text size="h3" text={convertDate(paymentDue, 0)} />
                         </div>
                     </div>
 
                     <div class="bottomCard_invoiceInfo-billTo-client">
-                        <Text size="p" text="Bill To" />
+                        <Text size="p" text="Bill To:" />
                         <div>
-                            <Text size="{innerWidth > 1880 ? "h3" : "h4"}" text={clientName} />
+                            <Text size="h3" text={clientName} />
                         </div>
                         <div
                             class="bottomCard_invoiceInfo-billTo-client-information">
-                            <Text size="{innerWidth > 1880 ? "h3" : "p"}" text={clientAddress.street} />
-                            <Text size="{innerWidth > 1880 ? "h3" : "p"}" text={clientAddress.city} />
-                            <Text size="{innerWidth > 1880 ? "h3" : "p"}" text={clientAddress.postCode} />
-                            <Text size="{innerWidth > 1880 ? "h3" : "p"}" text={clientAddress.country} />
+                            <Text size="p" text={clientAddress.street} />
+                            <Text size="p" text={clientAddress.city} />
+                            <Text size="p" text={clientAddress.postCode} />
+                            <Text size="p" text={clientAddress.country} />
                         </div>
                     </div>
 
                     <div class="bottomCard_invoiceInfo-billTo-email">
-                        <Text size="p" text="Sent to" />
-                        <Text size="{innerWidth > 1880 ? "h3" : "h4"}" text={clientEmail} />
+                        <Text size="p" text="Sent to:" />
+                        <Text size="h3" text={clientEmail} />
                     </div>
                 </div>
 
@@ -154,7 +154,7 @@
                             <div class="bottomCard_invoiceInfo-itemList-items">
                                 <div
                                     class="bottomCard_invoiceInfo-itemList-items-description">
-                                    <Text size="{innerWidth > 1880 ? "h2" : "h3"}" text={item.name} />
+                                    <Text size="h3" text={item.name} />
                                     <Text
                                         size="p"
                                         text="${Number(items[i].price).toFixed(2)} x {items[i].quantity}"/>
@@ -225,6 +225,7 @@
 
 <style lang="scss">
     @import "../../scss/util/index.scss";
+
     .invoiceContainer {
         @extend %flexCol;
         @extend %fullWidth;

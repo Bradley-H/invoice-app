@@ -58,6 +58,10 @@
                 width: toRem(185);
                 height: toRem(60);
             }
+            @include fourk{
+                width: toRem(270);
+                height: toRem(70);
+            }
         }
     }
 </style>

@@ -21,7 +21,7 @@ import {convertDate, numberWithCommas} from '../../store/functionStore'
     
     .container-invoice{
         @extend %grid;
-        grid-template-columns:1fr 0fr;
+        grid-template-columns:1fr .3fr;
         @extend %fullWidth;
         @include laptop{
             grid-template-columns:2fr 1fr;
@@ -42,18 +42,16 @@ import {convertDate, numberWithCommas} from '../../store/functionStore'
         padding: toRem(16) 0 toRem(16) toRem(8);
         gap: toRem(10);
         @include tablet{
-            grid-template-columns: 1fr 2fr;
+            grid-template-columns: 1fr 80%;
             text-align: center;
             padding: 0;
         }
-        @include laptop{
-            grid-template-columns: 1fr 60%;
-        }
         @include desktop{
-            width: 100%;
+            display: flex;
+            justify-content: space-around;
         }
         @include large{
-            width: toRem(510);
+            width: unset;
             place-items: center;
             margin-right: toRem(25)
         }
@@ -75,6 +73,7 @@ import {convertDate, numberWithCommas} from '../../store/functionStore'
                 display: flex;
                 flex-direction: column;
                 gap: toRem(10);
+                width: toRem(200)
             }
             @include large{
                 width: max-content;

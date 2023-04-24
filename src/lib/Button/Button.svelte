@@ -16,19 +16,24 @@
     a,button{
         @include centered;
         padding: .75rem;
-        width: max-content;
-        font-size: toRem(14);
+        font-size: toRem(15);
         height: 3.5rem;
+        cursor: pointer;
+        font-weight: bold;
         @include tablet{
             font-size: toRem(16);
             min-width: 4rem;
         }
         @include large{
             font-size: toRem(20);
-            min-width: 5rem;
+            min-width: 4.5rem;
             height: 4.3rem;
         }
-        cursor: pointer;
+        @include fourk{
+            font-size: toRem(25);
+            width: 13rem;
+            height: 5rem;
+        }
         &.primary{
             background-color: $colorLight;
         }
@@ -46,14 +51,39 @@
             width: 100% !important;
         }
         i{
+            display: none;
             margin-right: .7rem;
             font-size: 1.1rem;
+            @include tablet{
+                display: inline-block;
+                font-size: 1.5rem;
+            }
+            @include large{
+                font-size: 2rem;
+            }
+            @include fourk{
+                font-size: 2.3rem;
+            }
         }
         &.rounded{
             border-radius: toRem(20);
         }
         &.small{
-            width: 5rem;
+            height: 3.5rem;
+            width: 100%;
+            @include tablet{
+                width:8rem;
+            }
+            @include desktop{
+                width: 10rem;
+            }
+            @include large{
+                width: 12rem;
+            }
+            @include fourk{
+                width: 13rem;
+
+            }
         }
         &.medium{
             min-width: 3rem;
@@ -68,6 +98,7 @@
 
     button[disabled]{
             opacity: .5;
+            cursor: not-allowed;
         }
 </style>
 
