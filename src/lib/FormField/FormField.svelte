@@ -20,6 +20,7 @@
     export let placeholder: string = "";
     export let invalidMessage: string = "";
     export let activeFormField: string = "";
+    export let fullHeight: boolean = false;
     // varaibles //
     let innerWidth: number = 0
     let active: boolean = false;
@@ -76,11 +77,11 @@
             {id}
             type="date"
             {placeholder}
-            class:invalid={!valid}
+            class:insvalid={!valid}
             bind:value
         />
     {:else if form === "select"}
-    <div class="filter {theme}" on:click={() => active = !active}
+    <div class="filter {theme}" class:fullHeight={fullHeight} on:click={() => active = !active}
         on:keypress={() => active = !active}>
         <div class="option">
             <div class="title" >
@@ -112,6 +113,7 @@
     @import "../../scss/util/index.scss";
     div {
         @extend %fullWidth;
+        @extend %fullHeight;
         &.title {
             @include tablet{
                 transform: translateY(.25rem);
@@ -119,17 +121,27 @@
         }
         input,
         .filter {
-            padding: toRem(13);
+            padding: toRem(15);
             border-radius: toRem(5);
             font-weight: bold;
             @extend %fullWidth;
-            height: 3.3rem;
+            height: toRem(50);
+            @include tablet{
+                height: toRem(55);
+            }
             @include large{
-                height: toRem(80);
+                height: toRem(60);
                 font-size: 1.3rem;
+            }
+            @include fourk{
+                height: toRem(90);
             }
             &.invalid {
                 border: toRem(1) solid $colorDanger;
+                margin: 0;
+            }
+            &.fullHeight{
+                height: 100%;
             }
             &.Dark {
                 background-color: lighten($color: $bgColorDark, $amount: 7);
@@ -148,8 +160,6 @@
 
     .filter{
         position: relative;
-        @extend %fullWidth;
-        @extend %fullHeight;
         padding: 0;
         z-index: 2;
         cursor: pointer;
@@ -157,10 +167,7 @@
             display: flex;
             align-items: center;
             gap: 2rem;
-            transform: translateY(.25rem);
-            @include large{
-                transform: translateY(.8rem)
-            }
+            transform: translateY(.1rem);
             i{
                 margin-left: auto;
                 font-size: toRem(20);
@@ -225,10 +232,12 @@
     p {
         display: none;
         color: $colorDanger;
-        margin: toRem(5) 0;
+        margin-top: 4px;
         &.invalid {
             display: block;
             font-weight: bold;
+            // width: max-content;
+            height: max-content;
         }
     }
 

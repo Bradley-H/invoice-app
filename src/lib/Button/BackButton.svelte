@@ -5,7 +5,7 @@
 
 {#if href}
     <a href="/"
-        ><i class="fas fa-chevron-left" /><Text size="{innerWidth > 1880 ? "h2" : "h3"}" text="Go back" /></a
+        ><i class="fas fa-chevron-left" /><Text size="h3" text="Go back" /></a
     >
 {:else}
     <button on:click|preventDefault
@@ -20,12 +20,21 @@
     @import "../../scss/util/index.scss";
     a,
     button {
-        @include centered;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        width: max-content;
         font-size: toRem(13);
         margin: 1.5rem 0;
         cursor: pointer;
         @include tablet {
             font-size: toRem(30);
+        }
+        @include laptop{
+            font-size: toRem(35);
+        }
+        @include fourk{
+            font-size: toRem(50);
         }
     }
 
@@ -39,7 +48,7 @@
         }
         @include large {
             font-size: 2rem;
-            margin-right: 1rem;
+            margin-right: .75rem;
         }
     }
 </style>

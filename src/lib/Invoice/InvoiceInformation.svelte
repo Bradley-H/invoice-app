@@ -243,26 +243,31 @@
     .topCard {
         @extend %flex;
         margin-bottom: 1rem;
+        margin-top: 1.5rem;
         @include tablet {
             justify-content: space-between;
         }
         &_invoiceStatus {
-            @include centered;
+            display: flex;
+            align-items: center;
             gap: toRem(15);
-            @extend %fullWidth;
+            width: max-content;
             padding: toRem(2);
             @include tablet {
-                justify-content: center;
+                margin-left: 1.5rem;
             }
         }
         &_buttons {
             display: none;
-            @extend %fullWidth;
-            justify-content: end;
-            margin-right: toRem(16);
+            margin-left: auto;
             gap: toRem(25);
+            padding: 1rem;
             @include tablet {
                 display: flex;
+                width: clamp(toRem(200), 40vw, toRem(600));
+            }
+            @include laptop {
+                width: clamp(toRem(500), 40vw, toRem(900));
             }
         }
     }

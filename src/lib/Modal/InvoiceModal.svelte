@@ -194,7 +194,7 @@
     import "../../scss/styles.scss";
 </script>
 
-<div class="modal" transition:fly={{ duration: 1200, opacity: 1, x: -780 }}>
+<div class="modal" transition:fly={{ duration: 1200, opacity: 1, x: -850 }}>
     <Card modal>
         <form>
             <div class="title">
@@ -258,7 +258,8 @@
 
             <div class="billTo">
                 <p>Bill To</p>
-                <FormField
+                <div class="billTo_client">
+                    <FormField
                     text="Client's Name"
                     id="clientName"
                     placeholder="Name"
@@ -281,6 +282,8 @@
                     bind:value={clientAddress.street}
                     valid={strValid(clientAddress.street)}
                     invalidMessage="Please enter a valid street"/>
+                </div>
+                
 
                 <div class="billTo_information">
                     <div class="billTo_information-city">
@@ -332,13 +335,15 @@
                         {activeFormField}
                         />
                 </div>
-                <FormField
-                    text="Project Description"
-                    id="description"
-                    placeholder="Project Description"
-                    bind:value={newInvoice.description}
-                    valid={strValid(description)}
-                    invalidMessage="Please enter a valid description."/>
+                <div class="billTo_description">
+                    <FormField
+                        text="Project Description"
+                        id="description"
+                        placeholder="Project Description"
+                        bind:value={newInvoice.description}
+                        valid={strValid(description)}
+                        invalidMessage="Please enter a valid description."/>
+                </div>
             </div>
 
             <p>Item list</p>
@@ -393,6 +398,7 @@
                 <Button
                     rounded
                     icon="plus"
+                    size="large"
                     fluid
                     text="Add Item"
                     on:click={addItem}/>
@@ -405,7 +411,7 @@
                     rounded
                     text="Discard"
                     on:click={() => (prompt = "discard")}/>
-                <div>
+
                     <Button
                         type="secondary"
                         icon="save"
@@ -422,6 +428,7 @@
                         rounded
                         text="Save and Send"
                         on:click={() => (prompt = "pending")}/>
+                <div>
                 </div>
             </div>
         </form>
@@ -462,7 +469,8 @@
     @import "../../scss/util/index.scss";
 
     
-$spacing: toRem(15);
+$spacing: toRem(10);
+$fourkSpacing: toRem(16);
 
     form {
         p {
@@ -478,17 +486,20 @@ $spacing: toRem(15);
         }
         .billFrom {
             @extend %flexCol;
-            margin-top: toRem(35);
             &_information {
                 @extend %grid;
                 gap: $spacing;
                 &-city {
                     @extend %grid2;
+                    gap: $spacing;
                     @include tablet {
                         grid-template-columns: 1fr 1fr 1fr;
                     }
                     @include large{
-                        margin: toRem(45) 0;
+                        margin: toRem(10) 0;
+                    }
+                    @include fourk{
+                        margin:$fourkSpacing 0 
                     }
                 }
                 &-country {
@@ -502,25 +513,46 @@ $spacing: toRem(15);
         .billTo {
             @extend %grid;
             grid-template-columns: 1fr;
-            gap: $spacing;
-            @include large{
-                margin: 25px 0;
+                @include large{
+                margin: toRem(10) 0;
+            }
+            &_client{
+                display: grid;
+                gap: $spacing;
+                @include fourk{
+                        gap:$fourkSpacing 0; 
+                    }
+            }
+            &_description{
+                margin-top: $spacing;
+                @include tablet{
+                    margin-top: 0;
+                }
+                @include fourk{
+                        margin:$fourkSpacing 0 
+                    }
             }
 
             &_invoiceInformation {
                 display: grid;
                 gap: $spacing;
+                margin-top: $spacing;
+                margin-bottom: $spacing;
                 @include tablet {
                     grid-template-columns: 1fr 1fr;
-                    gap: toRem(10);
+                    place-items: center
                 }
             }
             &_information {
                 @extend %grid;
+                @include fourk{
+                        margin:$fourkSpacing 0 
+                    }
 
                 &-city {
                     @extend %grid2;
-                    margin: toRem(16) 0;
+                    gap: $spacing;
+                    margin-top: $spacing;
                     @include tablet {
                         grid-template-columns: 1fr 1fr 1fr;
                     }
@@ -552,11 +584,11 @@ $spacing: toRem(15);
             margin: 0 0 0 $navWidth;
         }
         @include large{
-            max-width: toRem(700);
+            max-width: toRem(725);
             margin: 0 0 0 $navWidthLarge;
         }
         @include fourk{
-            max-width: toRem(800);
+            max-width: toRem(850);
         }
     }
 
@@ -577,10 +609,9 @@ $spacing: toRem(15);
         width: 100%;
         transform: translateY(-2.5rem);
         position: sticky;
-        margin: toRem(32) 0;
-        @include large{
-            height: 5rem;
-        }
+        margin: toRem(60) 0;
+        height: clamp(toRem(60), 8vw, toRem(120));
+        gap: 10px;
         div {
             @extend %flex;
             gap: toRem(8);
@@ -594,7 +625,11 @@ $spacing: toRem(15);
     .itemList {
         @extend %grid;
         margin-bottom: toRem(32);
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 1fr;
+        gap: $spacing;
+        @include tablet{
+            grid-template-columns: 1fr 2fr;
+        }
         .nameField {
             @extend %grid;
             grid-template-columns: 1fr;
@@ -605,11 +640,9 @@ $spacing: toRem(15);
         @extend %grid;
         grid-template-columns: 1fr 1fr 1fr .1fr;
         gap: toRem(6);
-        margin-left: toRem(10);
         @include tablet {
             grid-template-columns: 1fr 1fr 1.5fr 0.3fr;
-            gap: toRem(10);
-            margin-left: toRem(10);
+            gap: $spacing;
         }
     }
     i {

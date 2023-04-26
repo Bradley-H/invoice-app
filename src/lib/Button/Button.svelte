@@ -7,6 +7,7 @@
     export let fluid:boolean = false;
     export let disabled: boolean = false;
     export let rounded: Boolean = false
+    export let fullHeight: boolean = false;
 </script>
 
 
@@ -17,22 +18,18 @@
         @include centered;
         padding: .75rem;
         font-size: toRem(15);
-        height: 3.5rem;
-        cursor: pointer;
         font-weight: bold;
+        height: 100%;
+        width: 100%;
+        cursor: pointer;
         @include tablet{
             font-size: toRem(16);
-            min-width: 4rem;
         }
         @include large{
-            font-size: toRem(20);
-            min-width: 4.5rem;
-            height: 4.3rem;
+            font-size: toRem(20);;
         }
         @include fourk{
             font-size: toRem(25);
-            width: 13rem;
-            height: 5rem;
         }
         &.primary{
             background-color: $colorLight;
@@ -48,7 +45,10 @@
             background-color: $colorDanger;
         }
         &.fluid{
-            width: 100% !important;
+            width: 100%;
+        }
+        &.fullHeight{
+            height: 100% !important;
         }
         i{
             display: none;
@@ -69,21 +69,8 @@
             border-radius: toRem(20);
         }
         &.small{
-            height: 3.5rem;
-            width: 100%;
-            @include tablet{
-                width:8rem;
-            }
-            @include desktop{
-                width: 10rem;
-            }
-            @include large{
-                width: 12rem;
-            }
-            @include fourk{
-                width: 13rem;
-
-            }
+            width: clamp(2rem, 25vw, max-content);
+            height: 100%;
         }
         &.medium{
             min-width: 3rem;
@@ -91,8 +78,7 @@
             height: 3rem;
         }
         &.large{
-            width: 11.5rem;
-            height: 4.3rem;
+            height: 5rem;
         }
     }
 
@@ -104,7 +90,7 @@
 
 
 {#if !href}
-    <button class:rounded={rounded} {disabled} on:click|preventDefault class:fluid={fluid} class="{type} {size}"><i class="fas fa-{icon}"></i>{text}</button>
+    <button class:rounded={rounded} {disabled} on:click|preventDefault class:fluid={fluid} class="{type} {size}" class:fullHeight={fullHeight}><i class="fas fa-{icon}"></i>{text}</button>
 {:else}
-    <a on:click|preventDefault class="{type}" {href}><i class="fas fa-{icon}"></i>{text}</a>
+    <a class:fullHeight={fullHeight} on:click|preventDefault class="{type}" {href}><i class="fas fa-{icon}"></i>{text}</a>
 {/if}

@@ -24,6 +24,6 @@
     }
 
     .title {
-        margin-bottom: 0.3rem;
+        margin-bottom: toRem(3);
     }
 </style>

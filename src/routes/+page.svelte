@@ -34,6 +34,7 @@
             <div class="settings">
                 <FormField
                     form="select"
+                    fullHeight
                     options={invoiceFilter}
                     bind:value={filter}
                     on:toggleInvoice={(e) => filter = e.detail.val.value}
@@ -41,7 +42,8 @@
                     />
                 <Button
                     rounded
-                    size="small"
+                    size="large"
+                    fullHeight
                     icon="plus"
                     text="Add Invoice"
                     on:click={() => ($globalStore.modalStatus = "add")}

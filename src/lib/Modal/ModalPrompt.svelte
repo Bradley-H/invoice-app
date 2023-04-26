@@ -32,10 +32,15 @@
         transform: translate(-50%, -50%);
         @extend %fullWidth;
         max-width: toRem(600);
+        // height: 400px;
         z-index: 5;
         padding: toRem(25);
-        line-height: 1.5;
+        line-height: 2;
         text-align: center;
+        @include laptop{
+            max-width: clamp(toRem(500), 25vw, toRem(1000));
+            max-height: clamp(toRem(300), 15vh, toRem(500));
+        }
     }
 
     .overlay{
@@ -52,6 +57,7 @@
         display: flex;
         justify-content: space-around;
         margin-top: toRem(20);
+        gap: 10px;
     }
 </style>
 
