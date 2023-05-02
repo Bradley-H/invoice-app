@@ -9,6 +9,7 @@
     import ModalPrompt from "$lib/Modal/ModalPrompt.svelte";
     // VARIABLES //
     let prompt;
+    //prompts
     // PROPS //
     export let status: string = "";
     export let id: string = "";
@@ -55,6 +56,28 @@
     };
     // DESTRUCTURING //
     $: ({ editInvoice, markAsPaid, deleteInvoice } = invoiceInformation);
+    //buttons
+    const buttons = [
+        {
+            text: "Edit",
+            type: "secondary",
+            icon: "pen",
+            onClickFunction: () => editInvoice()
+        },
+        {
+            text: "Delete",
+            type: "danger",
+            icon: "trash",
+            onClickFunction: () => (prompt = "delete")
+        },
+        {
+            text: "Mark as Paid",
+            type: "primary",
+            icon: "check",
+            disabled: status === "paid",
+            onClickFunction: () => (prompt = "paid")
+        }
+    ];
     // SASS DEFINITIONS //
     import "../../store/globalStore";
 </script>
@@ -67,7 +90,7 @@
     <div class="topCard">
         <Card round>
             <div class="topCard_invoiceStatus">
-                <Text size="{innerWidth > 1880 ? "h2" : "p"}" text="Status:" />
+                <Text size="p" text="Status:" />
                 {#key status}
                     <Tag {status} />
                 {/key}
@@ -103,15 +126,15 @@
             <div class="bottomCard_invoiceInfo">
                 <div class="bottomCard_invoiceInfo-details">
                     <div class="bottomCard_invoiceInfo-ID">
-                        <Text size="{innerWidth > 2000 ? "h2" : "h3"}" text="#{id}" />
-                        <Text size="{innerWidth > 2000 ? "h4" : "p"}" text={description} />
+                        <Text size="h3" text="#{id}" />
+                        <Text size="p" text={description} />
                     </div>
 
                     <div class="bottomCard_invoiceInfo-senderInfo">
-                        <Text size="{innerWidth > 2000 ? "h5" : "p"}" text={senderAddress.street} />
-                        <Text size="{innerWidth > 2000 ? "h5" : "p"}" text={senderAddress.city} />
-                        <Text size="{innerWidth > 2000 ? "h5" : "p"}" text={senderAddress.postCode} />
-                        <Text size="{innerWidth > 2000 ? "h5" : "p"}" text={senderAddress.country} />
+                        <Text size="p" text={senderAddress.street} />
+                        <Text size="p" text={senderAddress.city} />
+                        <Text size="p" text={senderAddress.postCode} />
+                        <Text size="p" text={senderAddress.country} />
                     </div>
                 </div>
 
@@ -119,7 +142,7 @@
                     <div class="bottomCard_invoiceInfo-billTo-invoices">
                         <div class="bottomCard_invoiceInfo-billTo-invoiceDate">
                             <Text size="p" text="Invoice Date:" />
-                            <Text size="{innerWidth > 2000 ? "h3" : "h4"}" text={convertDate(createdAt, 0)} />
+                            <Text size="h4" text={convertDate(createdAt, 0)} />
                         </div>
 
                         <div class="bottomCard_invoiceInfo-billTo-invoiceDue">
@@ -178,30 +201,17 @@
 <div class="bottomCard_buttons">
     <Card>
         <div class="btns">
+            {#each buttons as {text, type, icon, disabled, onClickFunction}}
             <Button
                 size="medium"
                 fluid
-                text="Edit"
-                type="secondary"
-                icon="pen"
+                text={text}
+                type={type}
+                icon={icon}
                 rounded
-                on:click={editInvoice}/>
-            <Button
-                size="medium"
-                fluid
-                text="Delete"
-                type="danger"
-                icon="trash"
-                rounded
-                on:click={() => (prompt = "delete")}/>
-            <Button
-                text="Mark as Paid"
-                size="medium"
-                fluid
-                icon="check"
-                disabled={status === "paid"}
-                rounded
-                on:click={() => (prompt = "paid")}/>
+                {disabled}
+                on:click={() => onClickFunction()}/>
+        {/each}
         </div>
     </Card>
 </div>
@@ -248,13 +258,14 @@
             justify-content: space-between;
         }
         &_invoiceStatus {
-            display: flex;
+            @extend %flex;
             align-items: center;
             gap: toRem(15);
             width: max-content;
             padding: toRem(2);
             @include tablet {
                 margin-left: 1.5rem;
+                margin-right: auto;;
             }
         }
         &_buttons {
@@ -264,7 +275,7 @@
             padding: 1rem;
             @include tablet {
                 display: flex;
-                width: clamp(toRem(200), 40vw, toRem(600));
+                width: clamp(toRem(200), 55vw, toRem(500));
             }
             @include laptop {
                 width: clamp(toRem(500), 40vw, toRem(900));
@@ -348,7 +359,7 @@
                 grid-template-columns: 1fr auto;
                 gap: toRem(35);
                 @include tablet {
-                    grid-template-columns: 1fr 1fr 1fr;
+                    grid-template-columns: repeat(3, 1fr);
                 }
                 @include large{
                     grid-template-columns: 1.2fr 1.2fr .75fr;

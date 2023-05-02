@@ -36,7 +36,9 @@
         
     <div class="settings">
         <div class="themeSwitcher">
-            <i on:click={themeSwitch} class="fas fa-{icon}" />
+            <i on:click={themeSwitch} class="fas fa-{icon}" 
+               on:keypress={themeSwitch}
+            />
         </div>
         <div class="avatar">
             <i class="fas fa-user-circle" />
@@ -126,7 +128,7 @@
         }
             @include large{
                 width: $navWidthLarge;
-                height: toRem(140);
+                height: toRem(100);
                 font-size: toRem(35);
             }
         }

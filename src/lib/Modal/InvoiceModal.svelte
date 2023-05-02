@@ -12,15 +12,6 @@
     import { onDestroy, onMount } from "svelte";
     // STORES //
     import { globalStore } from "../../store/globalStore";
-    // LIFECYCLE HOOKS //
-    //composable //
-    function icn(icon){
-        if( innerWidth > 2000) {
-            return icon
-        } else {
-            return ""
-        }
-    }
     onMount(() => {
         if ($globalStore.modalStatus === "edit") {
             // if the modal is in edit mode
@@ -47,7 +38,24 @@
         newInvoice = null;
     });
 
-    $: size = (innerWidth > 1800 ? "large" : "medium");
+    //prompts
+    const prompts = [
+        {
+            promptValue: "discard",
+            acceptFunction: closeModal,
+            message: "You want to discard the changes?"
+        },
+        {
+            promptValue: "draft",
+            acceptFunction: () => saveInvoice("draft"),
+            message: "You want to save this invoice as draft?"
+        },
+        {
+            promptValue: "pending",
+            acceptFunction: () => saveInvoice("pending"),
+            message: "You want to save this invoice as pending?"
+        }
+    ];
     
     // FUNCTIONS //
     import {
@@ -444,26 +452,14 @@
     />
 
 <!-- IF PROMPT === DISCARD/DRAFT/PENDING, ASK FOR CONFIRMATION -->
-{#if prompt == "discard"}
-    <ModalPrompt
-        on:decline={() => (prompt = null)}
-        on:accept={closeModal}
-        text={"You want to discard the changes?"}/>
-{/if}
-
-{#if prompt === "draft"}
-    <ModalPrompt
-        on:decline={() => (prompt = null)}
-        on:accept={() => saveInvoice("draft")}
-        text={"You want to save this invoice as draft?"}/>
-{/if}
-
-{#if prompt === "pending"}
-    <ModalPrompt
-        on:decline={() => (prompt = null)}
-        on:accept={() => saveInvoice("pending")}
-        text={"You want to save this invoice as pending?"}/>
-{/if}
+{#each prompts as {promptValue, acceptFunction, message}}
+    {#if prompt === promptValue}
+        <ModalPrompt
+            on:decline={() => (prompt = null)}
+            on:accept={() => acceptFunction()}
+            text={message}/>
+    {/if}
+{/each}
 
 <style lang="scss">
     @import "../../scss/util/index.scss";
@@ -493,7 +489,7 @@ $fourkSpacing: toRem(16);
                     @extend %grid2;
                     gap: $spacing;
                     @include tablet {
-                        grid-template-columns: 1fr 1fr 1fr;
+                        grid-template-columns: repeat(3, 1fr);
                     }
                     @include large{
                         margin: toRem(10) 0;
@@ -512,12 +508,11 @@ $fourkSpacing: toRem(16);
         }
         .billTo {
             @extend %grid;
-            grid-template-columns: 1fr;
                 @include large{
                 margin: toRem(10) 0;
             }
             &_client{
-                display: grid;
+                @extend %grid;
                 gap: $spacing;
                 @include fourk{
                         gap:$fourkSpacing 0; 
@@ -534,10 +529,9 @@ $fourkSpacing: toRem(16);
             }
 
             &_invoiceInformation {
-                display: grid;
+                @extend %grid;
                 gap: $spacing;
-                margin-top: $spacing;
-                margin-bottom: $spacing;
+                margin: $spacing 0;
                 @include tablet {
                     grid-template-columns: 1fr 1fr;
                     place-items: center
@@ -575,16 +569,16 @@ $fourkSpacing: toRem(16);
         margin: toRem(32) 0 0 0;
         max-width: $invoiceModalWidthMobile;
         margin: $navHeight 0 0 0;
-        inset: 0 0 0 0;
+        inset: 0;
         @include tablet {
             max-width: toRem(700);
         }
         @include laptop {
-            max-width: toRem(575);
+            max-width: toRem(580);
             margin: 0 0 0 $navWidth;
         }
         @include large{
-            max-width: toRem(725);
+            max-width: toRem(730);
             margin: 0 0 0 $navWidthLarge;
         }
         @include fourk{
@@ -603,10 +597,8 @@ $fourkSpacing: toRem(16);
     }
 
     .btns {
-        @extend %flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
+        @include centered;
+        @extend %fullWidth;
         transform: translateY(-2.5rem);
         position: sticky;
         margin: toRem(60) 0;
@@ -659,7 +651,7 @@ $fourkSpacing: toRem(16);
     }
 
     button {
-        display: grid;
+        @extend %grid;
         cursor: pointer;
         height: 100%;
         place-items: center;

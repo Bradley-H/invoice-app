@@ -126,8 +126,10 @@
             font-weight: bold;
             @extend %fullWidth;
             height: toRem(50);
+            font-size: toRem(16);
             @include tablet{
                 height: toRem(55);
+                font-size: toRem(18);
             }
             @include large{
                 height: toRem(60);

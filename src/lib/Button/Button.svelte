@@ -78,7 +78,7 @@
             height: 3rem;
         }
         &.large{
-            height: 5rem;
+            height: 4rem;
         }
     }
 

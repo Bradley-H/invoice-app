@@ -32,7 +32,6 @@
         transform: translate(-50%, -50%);
         @extend %fullWidth;
         max-width: toRem(600);
-        // height: 400px;
         z-index: 5;
         padding: toRem(25);
         line-height: 2;
@@ -45,8 +44,7 @@
 
     .overlay{
         position: fixed;
-        top: 0;
-        left: 0;
+        inset: 0;
         @extend %fullWidth;
         height: 100%;
         background-color: rgba(0,0,0,0.5);

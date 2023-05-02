@@ -5,7 +5,6 @@ export const options = [ // INVOICE OPTIONS (inside invoiceModal.svelte)
     { id: 3, text: "Within 120 Days", value: 120 },
 ];
 
-
 export const invoiceFilter = [ // for invoice filter located in the index page
     {id: 0, text: "All", value:"all"},
     {id: 1, text: "Paid", value:"paid"},
