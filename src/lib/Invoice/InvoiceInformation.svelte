@@ -97,14 +97,14 @@
             </div>
                 <div class="topCard_buttons">
                     <Button
-                        size="large"
+                        size="medium"
                         text="Edit"
                         type="secondary"
                         icon="pen"
                         rounded
                         on:click={editInvoice}/>
                     <Button
-                        size="large"
+                        size="medium"
                         text="Delete"
                         type="danger"
                         icon="trash"
@@ -112,7 +112,7 @@
                         on:click={() => (prompt = "delete")}/>
                     <Button
                         text="Mark as Paid"
-                        size="large"
+                        size="medium"
                         disabled={status === "paid"}
                         icon="check"
                         rounded
@@ -243,10 +243,16 @@
         margin: 0 auto;
         @include desktop{
             justify-content: center;
-            max-width: 80%
+            min-width: toRem(700);
+            max-width: toRem(1400)
         }
         @include large{
-            min-width: 85%;
+            min-width: toRem(1200);
+            max-width: toRem(1500)
+        }
+        @include fourk{
+            min-width: toRem(1700);
+            max-width: toRem(2300)
         }
     }
 
@@ -275,10 +281,9 @@
             padding: 1rem;
             @include tablet {
                 display: flex;
-                width: clamp(toRem(200), 55vw, toRem(500));
             }
             @include laptop {
-                width: clamp(toRem(500), 40vw, toRem(900));
+                gap: toRem(30);
             }
         }
     }

@@ -19,10 +19,9 @@
             const timer = setTimeout(() => {
                 location.href = "/";
             }, 3000);
-            clearTimeout(timer);
             throw new Error(
                 "Invoice not found - redirecting you back to the invoice list in 3 seconds..."
-            );
+                );
         }
     }
     

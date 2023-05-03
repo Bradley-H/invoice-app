@@ -54,6 +54,7 @@
             class={theme}
             class:invalid={!valid && touched}
             {id}
+            name={id}
             type="text"
             {placeholder}
             bind:value
@@ -66,18 +67,22 @@
             class:invalid={!valid && touched}
             on:keydown={numField}
             {id}
+            name={id}
             type="number"
             {placeholder}
             on:blur={() => (touched = true)}
             bind:value
         />
-    {:else if form === "date"}
+    {:else if form === "password"}
         <input
             {disabled}
             {id}
-            type="date"
+            name={id}
+            class={theme}
+            type="password"
             {placeholder}
-            class:insvalid={!valid}
+            class:invalid={!valid && touched}
+            on:blur={() => touched = true}
             bind:value
         />
     {:else if form === "select"}
@@ -238,7 +243,6 @@
         &.invalid {
             display: block;
             font-weight: bold;
-            // width: max-content;
             height: max-content;
         }
     }

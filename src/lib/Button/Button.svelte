@@ -1,4 +1,6 @@
 <script lang="ts">
+    import type { Action } from "@sveltejs/kit";
+
     export let href:string = ""
     export let text:string = ""
     export let type:string = "primary";
@@ -8,6 +10,7 @@
     export let disabled: boolean = false;
     export let rounded: Boolean = false
     export let fullHeight: boolean = false;
+    export let formaction: any;
 </script>
 
 
@@ -69,13 +72,15 @@
             border-radius: toRem(20);
         }
         &.small{
-            width: clamp(2rem, 25vw, max-content);
-            height: 100%;
+            width: clamp(2rem, 25vw, 10rem);
+            height: 4rem;
         }
         &.medium{
-            min-width: 3rem;
-            max-width: 10rem;
-            height: 3rem;
+            width: clamp(2rem, 17vw, 10rem);
+            height: 3.5rem;
+            @include large{
+                width: 12rem;
+            }
         }
         &.large{
             height: 4rem;
@@ -90,7 +95,7 @@
 
 
 {#if !href}
-    <button class:rounded={rounded} {disabled} on:click|preventDefault class:fluid={fluid} class="{type} {size}" class:fullHeight={fullHeight}><i class="fas fa-{icon}"></i>{text}</button>
+    <button {formaction} class:rounded={rounded} {disabled} on:click|preventDefault class:fluid={fluid} class="{type} {size}" class:fullHeight={fullHeight}><i class="fas fa-{icon}"></i>{text}</button>
 {:else}
     <a class:fullHeight={fullHeight} on:click|preventDefault class="{type}" {href}><i class="fas fa-{icon}"></i>{text}</a>
 {/if}

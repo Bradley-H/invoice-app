@@ -66,7 +66,7 @@
         <slot />
     </div>
 {:else}
-    <a href="home/{id}" class:inv class={$globalStore.theme}>
+    <a href="/{id}" class:inv class={$globalStore.theme}>
         <slot />
     </a>
 {/if}
