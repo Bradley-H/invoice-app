@@ -65,8 +65,8 @@
               <slot/>
         </Text>
        <div class="btns">
-           <Button type="danger" rounded size="large" icon="check" text="Yes" on:click={() => dispatchPrompt("accept")}/>
-           <Button type="primary" rounded size="large" icon="times" text="No" on:click={() => dispatchPrompt("decline")}/>
+           <Button type="primary" rounded size="large" icon="check" text="Yes" on:click={() => dispatchPrompt("accept")}/>
+           <Button type="danger" rounded size="large" icon="times" text="No" on:click={() => dispatchPrompt("decline")}/>
        </div>
     </InnerCard>
 </div>

@@ -79,6 +79,7 @@
                 width: $navWidth;
                 height: 100%;
                 margin: auto 0 0 0;
+                font-size: clamp(toRem(30), 2vw, toRem(50));
             }
             @include large{
                     width: $navWidthLarge;
@@ -97,9 +98,9 @@
                     border-bottom: toRem(2) solid rgba($color: grey, $alpha: 0.6);
                     border-right: none;
                     width: $navWidth;
-                    padding: 0 0 toRem(33) 0;
+                    padding: 0 0 toRem(25) 0;
                     margin-top: auto;
-                    height: 0;
+                    height: auto;
                 }
                 @include large{
                     width: $navWidthLarge;

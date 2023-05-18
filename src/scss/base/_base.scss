@@ -29,6 +29,14 @@ body, html{
     width: 100%;
     font-family: $primaryFont;
     height: 100%;
+    &.Dark{
+        background-color: $bgColorDark;
+        color: $miscLight;
+    }
+    &.Light{
+        background-color: $bgColorLight;
+        color: black;
+    }
 };
 
 $fontSize: (h1: 29, h2: 21, h3: 17, h4: 14, h5: 13, p: 12);

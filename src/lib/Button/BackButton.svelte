@@ -25,10 +25,11 @@
         height: 100%;
         width: max-content;
         font-size: toRem(13);
-        margin: 1.5rem 0;
+        margin: .5rem 0 2rem 0;
         cursor: pointer;
         @include tablet {
             font-size: toRem(30);
+            margin: 1.5rem 0;
         }
         @include laptop{
             font-size: toRem(35);

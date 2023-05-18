@@ -196,9 +196,7 @@
             </div>
         </Card>
     </div>
-</div>
-
-<div class="bottomCard_buttons">
+    <div class="bottomCard_buttons">
     <Card>
         <div class="btns">
             {#each buttons as {text, type, icon, disabled, onClickFunction}}
@@ -214,6 +212,7 @@
         {/each}
         </div>
     </Card>
+</div>
 </div>
 
 
@@ -241,6 +240,7 @@
         @extend %fullWidth;
         max-width: $containerWidth;
         margin: 0 auto;
+        height: 80svh;
         @include desktop{
             justify-content: center;
             min-width: toRem(700);
@@ -299,9 +299,10 @@
         }
         &_invoiceInfo {
             @extend %grid;
-            padding: toRem(8);
+            padding: toRem(7);
             @extend %fullWidth;
             @include large{
+                padding: toRem(20);
                 gap: toRem(30);
             }
             &-ID {
@@ -319,7 +320,7 @@
             }
             &-senderInfo {
                 @extend %flexCol;
-                gap: toRem(6);
+                line-height: 1.7;
                 margin: toRem(16) toRem(12) toRem(16) 0;
                 width: max-content
             }
@@ -335,7 +336,7 @@
                 &-items {
                     @extend %flex;
                     justify-content: space-between;
-                    padding: toRem(8) 0;
+                    padding: toRem(11) .3rem;
                     margin-bottom: toRem(8);
                     align-items: center;
                     &-total {
@@ -347,7 +348,7 @@
                         border-bottom-left-radius: toRem(12);
                         border-bottom-right-radius: toRem(12);
                         @include large{
-                            padding: 2rem;
+                            padding: 1.3rem;
                         }
                         h3 {
                             color: white;
@@ -355,7 +356,7 @@
                     }
                     &-description {
                         @extend %flexCol;
-                        gap: toRem(5);
+                        gap: toRem(10);
                     }
                 }
             }
@@ -388,7 +389,7 @@
                     @extend %grid;
                     &-information {
                         @extend %flexCol;
-                        gap: toRem(7);
+                        line-height: 1.7
                     }
                 }
                 &-invoiceDate,

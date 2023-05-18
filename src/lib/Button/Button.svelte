@@ -10,7 +10,6 @@
     export let disabled: boolean = false;
     export let rounded: Boolean = false
     export let fullHeight: boolean = false;
-    export let formaction: any;
 </script>
 
 
@@ -74,12 +73,17 @@
         &.small{
             width: clamp(2rem, 25vw, 10rem);
             height: 4rem;
+            @include tablet{
+                width: clamp(5rem, 20vw, 15rem);
+                height: clamp(5rem, 15vw, 5.5rem);
+            }
         }
         &.medium{
             width: clamp(2rem, 17vw, 10rem);
             height: 3.5rem;
-            @include large{
-                width: 12rem;
+            @include tablet{
+                width: clamp(5rem, 15vw, 15rem);
+                height: 4.5rem;
             }
         }
         &.large{
@@ -95,7 +99,7 @@
 
 
 {#if !href}
-    <button {formaction} class:rounded={rounded} {disabled} on:click|preventDefault class:fluid={fluid} class="{type} {size}" class:fullHeight={fullHeight}><i class="fas fa-{icon}"></i>{text}</button>
+    <button class:rounded={rounded} {disabled} on:click|preventDefault class:fluid={fluid} class="{type} {size}" class:fullHeight={fullHeight}><i class="fas fa-{icon}"></i>{text}</button>
 {:else}
     <a class:fullHeight={fullHeight} on:click|preventDefault class="{type}" {href}><i class="fas fa-{icon}"></i>{text}</a>
 {/if}

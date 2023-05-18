@@ -6,6 +6,7 @@ import Navigation from "$lib/Navigation/Navigation.svelte";
 import InvoiceModal from '$lib/Modal/InvoiceModal.svelte';
 // VARIABLES //
 $: theme = $globalStore.theme;
+
 // SASS DEFINITIONS //
 import "../scss/styles.scss"
 </script>
