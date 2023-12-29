@@ -26,7 +26,7 @@
         }
         @include large{
             font-size: toRem(20);
-            min-width: 4.5rem;
+            min-width: 3rem;
             height: 4.3rem;
         }
         @include fourk{
@@ -91,8 +91,8 @@
             height: 3rem;
         }
         &.large{
-            width: 11.5rem;
-            height: 4.3rem;
+            width: toRem(138);
+            height: 4rem;
         }
     }
 

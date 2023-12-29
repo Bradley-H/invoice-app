@@ -12,42 +12,34 @@
     import { onDestroy, onMount } from "svelte";
     // STORES //
     import { globalStore } from "../../store/globalStore";
-    // LIFECYCLE HOOKS //
-    //composable //
-    function icn(icon){
-        if( innerWidth > 2000) {
-            return icon
-        } else {
-            return ""
-        }
-    }
-    onMount(() => {
+        // PACKAGES //
+        import { uid } from "uid";
+
+    onMount( async () => {
         if ($globalStore.modalStatus === "edit") {
             // if the modal is in edit mode
             // FIND THE EDITED INVOICE //
-            let invoice = $globalStore.invoices.find(
+            let invoice = await $globalStore.invoices.find(
                 (invoice) => invoice.id === $page.params.invoice
             );
             // FILL IN THE FORM FIELDS //
-            newInvoice.id = invoice.id;
-            newInvoice.senderAddress = invoice.senderAddress;
-            newInvoice.clientAddress = invoice.clientAddress;
-            newInvoice.items = invoice.items;
-            newInvoice.clientName = invoice.clientName;
-            newInvoice.clientEmail = invoice.clientEmail;
-            newInvoice.paymentDue = invoice.paymentDue;
-            newInvoice.description = invoice.description;
-            newInvoice.total = invoice.total;
-            newInvoice.status = invoice.status;
-            newInvoice.createdAt = invoice.createdAt;
+            newInvoice.id = await invoice.id;
+            newInvoice.senderAddress = await invoice.senderAddress;
+            newInvoice.clientAddress = await invoice.clientAddress;
+            newInvoice.items = await invoice.items;
+            newInvoice.clientName = await invoice.clientName;
+            newInvoice.clientEmail = await invoice.clientEmail;
+            newInvoice.paymentDue = await invoice.paymentDue;
+            newInvoice.description = await invoice.description;
+            newInvoice.total = await invoice.total;
+            newInvoice.status = await invoice.status;
+            newInvoice.createdAt = await invoice.createdAt;
         }
     });
-    onDestroy(() => {
-        $globalStore.modalStatus = null;
-        newInvoice = null;
+    onDestroy( async () => {
+        $globalStore.modalStatus = await null;
+        newInvoice = await null;
     });
-
-    $: size = (innerWidth > 1800 ? "large" : "medium");
     
     // FUNCTIONS //
     import {
@@ -64,8 +56,6 @@
     let prompt = null; // is the prompt showing or not //
     let terms = 30; // the invoice terms //
     let activeFormField = "Within 30 Days"; // the active form field //
-    // PACKAGES //
-    import { uid } from "uid";
     // CHECK IF EVERYTHING HAS A LENGTH GREATER THAN 5 OR PROPER EMAIL //
     $: if (
         strValid(senderAddress.street) &&
@@ -485,7 +475,7 @@ $spacing: toRem(15);
                 &-city {
                     @extend %grid2;
                     @include tablet {
-                        grid-template-columns: 1fr 1fr 1fr;
+                        grid-template-columns: repeat(3, 1fr);
                     }
                     @include large{
                         margin: toRem(45) 0;
@@ -508,7 +498,7 @@ $spacing: toRem(15);
             }
 
             &_invoiceInformation {
-                display: grid;
+                @extend %grid;
                 gap: $spacing;
                 @include tablet {
                     grid-template-columns: 1fr 1fr;
@@ -517,7 +507,6 @@ $spacing: toRem(15);
             }
             &_information {
                 @extend %grid;
-
                 &-city {
                     @extend %grid2;
                     margin: toRem(16) 0;
@@ -626,7 +615,7 @@ $spacing: toRem(15);
     }
 
     button {
-        display: grid;
+        @extend %grid;
         cursor: pointer;
         height: 100%;
         place-items: center;

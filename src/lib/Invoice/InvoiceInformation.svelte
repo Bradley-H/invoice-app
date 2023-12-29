@@ -243,8 +243,9 @@
     .topCard {
         @extend %flex;
         margin-bottom: 1rem;
+        width: 100%;
         @include tablet {
-            justify-content: space-between;
+            grid-template-columns: 1fr 1fr;
         }
         &_invoiceStatus {
             @include centered;
@@ -252,12 +253,13 @@
             @extend %fullWidth;
             padding: toRem(2);
             @include tablet {
-                justify-content: center;
+                justify-content: left;
+                margin-left: 1.5rem;
             }
         }
         &_buttons {
             display: none;
-            @extend %fullWidth;
+            width: toRem(825);
             justify-content: end;
             margin-right: toRem(16);
             gap: toRem(25);
