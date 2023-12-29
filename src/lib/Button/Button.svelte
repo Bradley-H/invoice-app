@@ -56,17 +56,21 @@
             font-size: 1.1rem;
             @include tablet{
                 display: inline-block;
+                font-size: 1.5rem;
             }
             @include large{
                 font-size: 2rem;
+            }
+            @include fourk{
+                font-size: 2.3rem;
             }
         }
         &.rounded{
             border-radius: toRem(20);
         }
         &.small{
-            height: 4.5rem;
-            width: 6.5rem;
+            height: 3.5rem;
+            width: 100%;
             @include tablet{
                 width:8rem;
             }
@@ -75,11 +79,10 @@
             }
             @include large{
                 width: 12rem;
-                height: 5.5rem;
             }
             @include fourk{
                 width: 13rem;
-                height: 100%;
+
             }
         }
         &.medium{
